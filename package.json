@@ -11,7 +11,7 @@
     "android/build.gradle",
     "dist/",
     "ios/Plugin/",
-    "CapacitorBluetoothSerial.podspec"
+    "asc_CapacitorBluetoothSerial.podspec"
   ],
   "scripts": {
     "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
@@ -28,15 +28,15 @@
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build",
-    "publish:cocoapod": "pod trunk push ./CapacitorBluetoothSerial.podspec --allow-warnings"
+    "publish:cocoapod": "pod trunk push ./asc_CapacitorBluetoothSerial.podspec --allow-warnings"
   },
   "author": "Gerson Groth",
   "license": "MIT",
   "devDependencies": {
-    "@capacitor/android": "^7.0.0",
-    "@capacitor/core": "^7.0.0",
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/core": "^7.4.4",
     "@capacitor/docgen": "^0.3.0",
-    "@capacitor/ios": "^7.0.0",
+    "@capacitor/ios": "^7.4.4",
     "@ionic/eslint-config": "^0.4.0",
     "@ionic/prettier-config": "^4.0.0",
     "@ionic/swiftlint-config": "^2.0.0",

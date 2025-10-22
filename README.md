@@ -62,7 +62,7 @@ npm run build
 ```sh
 git add .
 git commit -m "chore: release v<version>"
-git tag v<version>
+git tag <version>
 git push && git push --tags
 ```
 
