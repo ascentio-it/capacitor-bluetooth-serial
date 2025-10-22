@@ -11,6 +11,8 @@ Supported platforms
 - [ ] iOS
 
 Supported Capacitor versions:
+
+- Capacitor 7 : use version 7.x
 - Capacitor 6 : use version 6.x
 - Capacitor 5 : use version 5.x
 - Capacitor 4 : use version 0.6.x
@@ -19,16 +21,15 @@ Supported Capacitor versions:
 ## Usage
 
 Install the plugin via npm
-```
-npm install --save @e-is/capacitor-bluetooth-serial
-```
 
+```
+npm install --save @ascentio-it/capacitor-bluetooth-serial
+```
 
 ```typescript
-import {BluetoothSerial} from "@e-is/capacitor-bluetooth-serial";
+import { BluetoothSerial } from '@ascentio-it/capacitor-bluetooth-serial';
 
 //...do something with plugin
-
 ```
 
 ## API Documentation
@@ -36,6 +37,51 @@ import {BluetoothSerial} from "@e-is/capacitor-bluetooth-serial";
 Interface and type definitions can be found [here](./src/definitions.ts).
 
 # API
+
+# Release Process
+
+To make a new release of this plugin, follow these steps:
+
+1. **Install CocoaPods (if not already installed):**
+
+```sh
+sudo gem install cocoapods
+```
+
+2. **Update the version:**
+   Bump the version in `package.json` and `CapacitorBluetoothSerial.podspec` as needed.
+
+3. **Build the plugin:**
+
+```sh
+npm run build
+```
+
+4. **Commit and tag the release:**
+
+```sh
+git add .
+git commit -m "chore: release v<version>"
+git tag v<version>
+git push && git push --tags
+```
+
+5. **Publish to npm:**
+
+```sh
+npm publish
+```
+
+6. **Publish to CocoaPods:**
+
+```sh
+npm run publish:cocoapod
+```
+
+7. **Verify release:**
+   Check npm and CocoaPods for the new version.
+
+Repeat these steps for each new release. Update this section if the process changes.
 
 ## Methods
 
@@ -60,11 +106,11 @@ Interface and type definitions can be found [here](./src/definitions.ts).
 
 Reports if bluetooth is enabled.
 
-  `isEnabled(): Promise<BluetoothState>;`
+`isEnabled(): Promise<BluetoothState>;`
 
 ### Description
 
-Function `isEnabled` calls the success whatever bluetooth is enabled or not. The promise will contain an attribute `enabled` indicating if bluetooth is enabled or *not* enabled. The failure callback will be called only if an error occurs.
+Function `isEnabled` calls the success whatever bluetooth is enabled or not. The promise will contain an attribute `enabled` indicating if bluetooth is enabled or _not_ enabled. The failure callback will be called only if an error occurs.
 
 If you want to enable bluetooth afterwards, you can use #enable directly, once #enable also check if the bluetooth is conected or not.
 
@@ -75,8 +121,7 @@ None.
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .isEnabled()
+BluetoothSerial.isEnabled()
   .then((response: BluetoothState) => {
     const status = response.enabled ? 'enabled' : 'disabled';
     console.log(`Bluetooth is ${status}`);
@@ -94,7 +139,7 @@ Reports if bluetooth can be enabled.
 
 ### Description
 
-Function `canEnable` calls the success whatever bluetooth can be enabled or not. The promise will contain an attribute `enabled` indicating if bluetooth can be enabled or *not*. The failure callback will be called only if an error occurs.
+Function `canEnable` calls the success whatever bluetooth can be enabled or not. The promise will contain an attribute `enabled` indicating if bluetooth can be enabled or _not_. The failure callback will be called only if an error occurs.
 
 ### Parameters
 
@@ -103,8 +148,7 @@ None.
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .canEnable()
+BluetoothSerial.canEnable()
   .then((response: BluetoothState) => {
     const canEnable = response.enabled;
     console.log(`Bluetooth can be enabled ? ${canEnable}`);
@@ -116,13 +160,13 @@ BluetoothSerial
 
 ## enable
 
-  Enable bluetooth if it is not enabled. Also request permissions for bluetooth access if it is necessary.
+Enable bluetooth if it is not enabled. Also request permissions for bluetooth access if it is necessary.
 
-  `enable(): Promise<BluetoothState>;`
+`enable(): Promise<BluetoothState>;`
 
 ### Description
 
-Function `enable` calls the success whatever bluetooth is successfully enabled or not. The promise will contain an attribute `enabled` indicating if bluetooth is enabled or *not* enabled after the process. The failure callback will be called only if an error occurs.
+Function `enable` calls the success whatever bluetooth is successfully enabled or not. The promise will contain an attribute `enabled` indicating if bluetooth is enabled or _not_ enabled after the process. The failure callback will be called only if an error occurs.
 
 If the app does not have permission to use bluetooth, it will request it.
 
@@ -133,8 +177,7 @@ None.
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .enable()
+BluetoothSerial.enable()
   .then((response: BluetoothState) => {
     const status = response.enabled ? 'enabled' : 'disabled';
     console.log(`Bluetooth is ${status}`);
@@ -144,7 +187,6 @@ BluetoothSerial
   });
 ```
 
-
 ## disable
 
 Disable bluetooth if enabled. Also request permissions for bluetooth access if it is necessary.
@@ -153,8 +195,8 @@ Disable bluetooth if enabled. Also request permissions for bluetooth access if i
 
 ### Description
 
-Function `disable` calls the success whatever bluetooth is successfully disabled or not. 
-The promise will contain an attribute `enabled` indicating if bluetooth is enabled or *not* enabled after the process.
+Function `disable` calls the success whatever bluetooth is successfully disabled or not.
+The promise will contain an attribute `enabled` indicating if bluetooth is enabled or _not_ enabled after the process.
 The failure callback will be called only if an error occurs.
 
 If the app does not have permission to use bluetooth, it will request it.
@@ -166,8 +208,7 @@ None.
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .disable()
+BluetoothSerial.disable()
   .then((response: BluetoothState) => {
     const status = response.enabled ? 'enabled' : 'disabled';
     console.log(`Bluetooth is ${status}`);
@@ -176,7 +217,6 @@ BluetoothSerial
     console.log('Error disabling bluetooth');
   });
 ```
-
 
 ## startEnabledNotifications
 
@@ -188,11 +228,10 @@ Be notified when bluetooth status changed.
 
 Function `startEnabledNotifications` enable status notifications. In order to retrieve the values, use an Event Listener with 'onEnabledChanged' as event name.
 
-``` typescript
-const eventListener = BluetoothSerial.addListener('onEnabledChanged' , (response: BluetoothState) => {
-
-    const { enabled } = response;
-    //Do something with enabled variable
+```typescript
+const eventListener = BluetoothSerial.addListener('onEnabledChanged', (response: BluetoothState) => {
+  const { enabled } = response;
+  //Do something with enabled variable
 });
 ```
 
@@ -203,18 +242,16 @@ None.
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .startEnabledNotifications()
+BluetoothSerial.startEnabledNotifications()
   .then(() => {
-      eventListener = BluetoothSerial.addListener('onEnabledChanged', (data: BluetoothState) => {
-        console.log('Bluetooth state changed to ' + (data.enabled ? 'Enabled' : 'Disabled'));
-      });
+    eventListener = BluetoothSerial.addListener('onEnabledChanged', (data: BluetoothState) => {
+      console.log('Bluetooth state changed to ' + (data.enabled ? 'Enabled' : 'Disabled'));
+    });
   })
   .catch(() => {
     console.log('Error starting enabled listener');
   });
 ```
-
 
 ## stopEnabledNotifications
 
@@ -237,22 +274,20 @@ None.
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .stopEnabledNotifications()
+BluetoothSerial.stopEnabledNotifications()
   .then(() => {
-      eventListener.remove();
+    eventListener.remove();
   })
   .catch(() => {
     console.log('Error disabling listener for device');
   });
 ```
 
-
 ## scan
 
 Discover devices visible and close to the device
 
-  `scan(): Promise<BluetoothScanResult>;`
+`scan(): Promise<BluetoothScanResult>;`
 
 ### Description
 
@@ -263,17 +298,20 @@ Function `scan` discovers Bluetooth devices close to the device and visible. The
 Example list passed to success callback.
 
 ```json
-[{
+[
+  {
     "class": 0,
     "id": "00:11:22:33:44:55",
     "address": "00:11:22:33:44:55",
     "name": "Device 1"
-}, {
+  },
+  {
     "class": 7936,
     "id": "01:23:6645:4D67:89:00",
     "address": "01:23:6645:4D67:89:00",
     "name": "Device 2"
-}]
+  }
+]
 ```
 
 The discovery process takes a while to happen.
@@ -304,28 +342,28 @@ BluetoothSerial
 
 Connect to a Bluetooth device.
 
-  `connect(options: BluetoothConnectOptions): Promise<void>`;
+`connect(options: BluetoothConnectOptions): Promise<void>`;
 
 ### Description
 
-Function `connect` connects to a Bluetooth device.  The callback Success will be called when the connection is successful.  Failure is called if the connection fails.
+Function `connect` connects to a Bluetooth device. The callback Success will be called when the connection is successful. Failure is called if the connection fails.
 
 #### Android
+
 For Android, `connect` takes a MAC address of the remote device.
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
+- { **address** }: Identifier of the remote device.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .connect({
-    address: '00:11:22:33:44:55',
-  })
+BluetoothSerial.connect({
+  address: '00:11:22:33:44:55',
+})
   .then(() => {
-    console.log('Successfully connected')
+    console.log('Successfully connected');
   })
   .catch(() => {
     console.log('Error connecting...');
@@ -336,29 +374,29 @@ BluetoothSerial
 
 Connect insecurely to a Bluetooth device.
 
-  `connectInsecure(options: BluetoothConnectOptions): Promise<void>`;
+`connectInsecure(options: BluetoothConnectOptions): Promise<void>`;
 
 ### Description
 
-Function `connectInsecure` connects to a Bluetooth device.  The callback Success will be called when the connection is successful.  Failure is called if the connection fails.
-Function `connectInsecure` works like [BluetoothSerial.connect](#connect), but creates an insecure connection to a Bluetooth device. See the [Android docs](https://developer.android.com/reference/android/bluetooth/BluetoothDevice.html#createInsecureRfcommSocketToServiceRecord(java.util.UUID)) for more information.
+Function `connectInsecure` connects to a Bluetooth device. The callback Success will be called when the connection is successful. Failure is called if the connection fails.
+Function `connectInsecure` works like [BluetoothSerial.connect](#connect), but creates an insecure connection to a Bluetooth device. See the [Android docs](<https://developer.android.com/reference/android/bluetooth/BluetoothDevice.html#createInsecureRfcommSocketToServiceRecord(java.util.UUID)>) for more information.
 
 #### Android
+
 For Android, `connectInsecure` takes a MAC address of the remote device.
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
+- { **address** }: Identifier of the remote device.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .connectInsecure({
-    address: '00:11:22:33:44:55',
-  })
+BluetoothSerial.connectInsecure({
+  address: '00:11:22:33:44:55',
+})
   .then(() => {
-    console.log('Successfully connected')
+    console.log('Successfully connected');
   })
   .catch(() => {
     console.log('Error connecting...');
@@ -369,30 +407,30 @@ BluetoothSerial
 
 Disconnect a Bluetooth device.
 
-  `disconnect(options: BluetoothConnectOptions): Promise<void>`;
+`disconnect(options: BluetoothConnectOptions): Promise<void>`;
 
 ### Description
 
-Function `disconnect` disconnects a Bluetooth device.  The callback Success will be called when the disconnection is successful.  Failure is called if the disconnection fails.
+Function `disconnect` disconnects a Bluetooth device. The callback Success will be called when the disconnection is successful. Failure is called if the disconnection fails.
 
 #### Android
+
 For Android, `disconnect` takes a MAC address of the remote device.
 
 **Warning**: If no address is passed, all devices will be disconnected.
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
+- { **address** }: Identifier of the remote device.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .disconnect({
-    address: '00:11:22:33:44:55',
-  })
+BluetoothSerial.disconnect({
+  address: '00:11:22:33:44:55',
+})
   .then(() => {
-    console.log('Successfully disconnected')
+    console.log('Successfully disconnected');
   })
   .catch(() => {
     console.log('Error disconnecting...');
@@ -403,26 +441,26 @@ BluetoothSerial
 
 Reports the connection status.
 
-  `isConnected(options: BluetoothConnectOptions): Promise<BluetoothConnectResult>`;
+`isConnected(options: BluetoothConnectOptions): Promise<BluetoothConnectResult>`;
 
 ### Description
 
 Function `isConnected` calls the success callback with the connection status (connected or not connected). Failure will be called only if an error occurs.
 
 #### Android
+
 For Android, `isConnected` takes a MAC address of the remote device.
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
+- { **address** }: Identifier of the remote device.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .isConnected({
-    address: '00:11:22:33:44:55',
-  })
+BluetoothSerial.isConnected({
+  address: '00:11:22:33:44:55',
+})
   .then((result: BluetoothConnectResult) => {
     const status = result.connected ? 'connected' : 'disconnected';
     console.log(`Device is ${status}`);
@@ -436,23 +474,22 @@ BluetoothSerial
 
 Reads data from the buffer.
 
-  `read(options: BluetoothReadOptions): Promise<BluetoothReadResult>`;
+`read(options: BluetoothReadOptions): Promise<BluetoothReadResult>`;
 
 ### Description
 
-Function `read` reads the data from the buffer. The data is passed to the success callback as a String.  Calling `read` when no data is available will pass an empty String to the callback.
+Function `read` reads the data from the buffer. The data is passed to the success callback as a String. Calling `read` when no data is available will pass an empty String to the callback.
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
+- { **address** }: Identifier of the remote device.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .read({
-    address: '00:11:22:33:44:55',
-  })
+BluetoothSerial.read({
+  address: '00:11:22:33:44:55',
+})
   .then((result: BluetoothReadResult) => {
     console.log(result.data);
   })
@@ -465,25 +502,24 @@ BluetoothSerial
 
 Reads data from the buffer until it reaches a delimiter.
 
-  `readUntil(options: BluetoothReadUntilOptions): Promise<BluetoothReadResult>`;
+`readUntil(options: BluetoothReadUntilOptions): Promise<BluetoothReadResult>`;
 
 ### Description
 
-Function `readUntil` reads the data from the buffer until it reaches a delimiter.  The data is passed to the success callback as a String.  If the buffer does not contain the delimiter, an empty String is passed to the callback.
+Function `readUntil` reads the data from the buffer until it reaches a delimiter. The data is passed to the success callback as a String. If the buffer does not contain the delimiter, an empty String is passed to the callback.
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
-- { __delimiter__ }: Delimiter.
+- { **address** }: Identifier of the remote device.
+- { **delimiter** }: Delimiter.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .readUntil({
-    address: '00:11:22:33:44:55',
-    delimiter: '\n',
-  })
+BluetoothSerial.readUntil({
+  address: '00:11:22:33:44:55',
+  delimiter: '\n',
+})
   .then((result: BluetoothReadResult) => {
     console.log(result.data);
   })
@@ -496,36 +532,34 @@ BluetoothSerial
 
 Enable and be notified when any data is received.
 
-  `startNotifications(options: BluetoothEnableNotificationsOptions): Promise<void>`;
+`startNotifications(options: BluetoothEnableNotificationsOptions): Promise<void>`;
 
 ### Description
 
 Function `startNotifications` enable notifications. In order to retrieve the values, use an Event Listener with 'onRead' as event name.
 
-``` typescript
-const eventListener = BluetoothSerial.addListener('onRead' , (response: BluetoothReadResult) => {
-
-    const { value } = response;
-    //Do something with the value
+```typescript
+const eventListener = BluetoothSerial.addListener('onRead', (response: BluetoothReadResult) => {
+  const { value } = response;
+  //Do something with the value
 });
 ```
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
-- { __delimiter__ }: Delimiter for notification.
+- { **address** }: Identifier of the remote device.
+- { **delimiter** }: Delimiter for notification.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .startNotifications({
-    address: '00:11:22:33:44:55',
-    delimiter: '\n',
-  })
+BluetoothSerial.startNotifications({
+  address: '00:11:22:33:44:55',
+  delimiter: '\n',
+})
   .then((result: BluetoothEnableNotificationsResult) => {
-      eventListener = BluetoothSerial.addListener('onRead', (data: BluetoothReadResult) => {
-      console.log("Received value: " + data.value);
+    eventListener = BluetoothSerial.addListener('onRead', (data: BluetoothReadResult) => {
+      console.log('Received value: ' + data.value);
     });
   })
   .catch(() => {
@@ -537,7 +571,7 @@ BluetoothSerial
 
 Stops the propagation of value changes.
 
-  `stopNotifications(options: BluetoothDisableNotificationsOptions): Promise<void>`;
+`stopNotifications(options: BluetoothDisableNotificationsOptions): Promise<void>`;
 
 ### Description
 
@@ -549,15 +583,14 @@ eventListener.remove();
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
+- { **address** }: Identifier of the remote device.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .stopNotifications({
-    address: '00:11:22:33:44:55',
-  })
+BluetoothSerial.stopNotifications({
+  address: '00:11:22:33:44:55',
+})
   .then(() => {
     eventListener.remove();
   })
@@ -570,7 +603,7 @@ BluetoothSerial
 
 Write data to the buffer.
 
-  `write(options: BluetoothWriteOptions): Promise<void>`;
+`write(options: BluetoothWriteOptions): Promise<void>`;
 
 ### Description
 
@@ -578,17 +611,16 @@ Function `write` writes data to the buffer.
 
 ### Parameters
 
-- { __address__ }: Identifier of the remote device.
-- { __value__ }: String to send.
+- { **address** }: Identifier of the remote device.
+- { **value** }: String to send.
 
 ### Quick Example
 
 ```typescript
-BluetoothSerial
-  .write({
-    address: '00:11:22:33:44:55',
-    value: 'Hello world',
-  })
+BluetoothSerial.write({
+  address: '00:11:22:33:44:55',
+  value: 'Hello world',
+})
   .then(() => {
     console.log('Value sent to device');
   })

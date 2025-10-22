@@ -1,5 +1,5 @@
 {
-  "name": "@e-is/capacitor-bluetooth-serial",
+  "name": "@ascentio-it/capacitor-bluetooth-serial",
   "version": "7.0.0",
   "description": "Capacitor Bluetooth Serial Plugin",
   "main": "dist/plugin.cjs.js",
@@ -71,9 +71,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/e-is/capacitor-bluetooth-serial"
+    "url": "https://github.com/ascentio-it/capacitor-bluetooth-serial"
   },
   "bugs": {
-    "url": "https://github.com/e-is/capacitor-bluetooth-serial/issues"
+    "url": "https://github.com/ascentio-it/capacitor-bluetooth-serial/issues"
   }
 }
