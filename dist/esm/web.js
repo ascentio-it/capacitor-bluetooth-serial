@@ -1,6 +1,12 @@
 import { WebPlugin } from '@capacitor/core';
 import { OptionsRequiredError } from './utils/errors';
 export class BluetoothSerialWeb extends WebPlugin {
+    async checkBluetoothPermissions() {
+        throw this.unavailable('checkBluetoothPermissions is not available on web.');
+    }
+    async getPairedDevices() {
+        throw this.unavailable('getPairedDevices is not available on web.');
+    }
     async isEnabled() {
         // not available on web
         return { enabled: true };

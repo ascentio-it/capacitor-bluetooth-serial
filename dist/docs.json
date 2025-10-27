@@ -6,12 +6,32 @@
     "tags": [],
     "methods": [
       {
+        "name": "checkBluetoothPermissions",
+        "signature": "() => Promise<boolean>",
+        "parameters": [],
+        "returns": "Promise<boolean>",
+        "tags": [
+          {
+            "name": "return",
+            "text": "A promise that resolves to true if permissions are granted, false otherwise."
+          }
+        ],
+        "docs": "Checks if Bluetooth permissions are granted (Android only).",
+        "complexTypes": [],
+        "slug": "checkbluetoothpermissions"
+      },
+      {
         "name": "isEnabled",
         "signature": "() => Promise<BluetoothState>",
         "parameters": [],
         "returns": "Promise<BluetoothState>",
-        "tags": [],
-        "docs": "",
+        "tags": [
+          {
+            "name": "return",
+            "text": "A promise that resolves to the current state of Bluetooth, encapsulated as a `BluetoothState` object."
+          }
+        ],
+        "docs": "Checks whether Bluetooth is enabled on the device.",
         "complexTypes": [
           "BluetoothState"
         ],
@@ -109,6 +129,23 @@
           "BluetoothScanResult"
         ],
         "slug": "scan"
+      },
+      {
+        "name": "getPairedDevices",
+        "signature": "() => Promise<{ devices: PairedBluetoothDevice[]; }>",
+        "parameters": [],
+        "returns": "Promise<{ devices: PairedBluetoothDevice[]; }>",
+        "tags": [
+          {
+            "name": "return",
+            "text": "A promise that resolves to an object containing an array of paired devices with name and address."
+          }
+        ],
+        "docs": "Get a list of paired Bluetooth devices",
+        "complexTypes": [
+          "PairedBluetoothDevice"
+        ],
+        "slug": "getpaireddevices"
       },
       {
         "name": "connect",
@@ -434,6 +471,29 @@
           "docs": "",
           "complexTypes": [],
           "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "PairedBluetoothDevice",
+      "slug": "pairedbluetoothdevice",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "name",
+          "tags": [],
+          "docs": "Device name",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "address",
+          "tags": [],
+          "docs": "Device MAC address",
+          "complexTypes": [],
+          "type": "string"
         }
       ]
     },

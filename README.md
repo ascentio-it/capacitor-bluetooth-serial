@@ -1,8 +1,14 @@
 # Capacitor Bluetooth Serial Plugin
 
-Forked from [capacitor-bluetooth-serial](https://github.com/agro1desenvolvimento/capacitor-bluetooth-serial) (archived)
-
 A client implementation for interacting with Bluetooth (serial), using Capacitor.
+
+Fork from [e-is/capacitor-bluetooth-serial](https://github.com/e-is/capacitor-bluetooth-serial)
+
+Which is in turn forked from:
+
+Forked from [agro1desenvolvimento/capacitor-bluetooth-serial](https://github.com/agro1desenvolvimento/capacitor-bluetooth-serial) (archived)
+
+I needed this plugin with Capacitor 7 and some additional logic for getting the paired devices. This is why I have forked it. I most likely won't add additional features. But I will try to keep the packages updated and working with newer versions of Capacitor. Our project only uses Android, and I don't have a iOS device to check if it works. This is why supported platforms only states Android.
 
 Supported platforms
 
@@ -22,14 +28,67 @@ Supported Capacitor versions:
 
 Install the plugin via npm
 
-```
-npm install --save @ascentio-it/capacitor-bluetooth-serial
-```
+`npm intall --save @ascentio-it/capacitor-bluetooth-serial`
 
 ```typescript
 import { BluetoothSerial } from '@ascentio-it/capacitor-bluetooth-serial';
 
 //...do something with plugin
+```
+
+## readStream (Helper Example)
+
+The following is a helper function to continuously read data from a Bluetooth device as a stream, using notifications and a subscription pattern.
+
+```typescript
+import { BluetoothSerial } from '@ascentio-it/capacitor-bluetooth-serial';
+import type { PluginListenerHandle } from '@capacitor/core';
+
+const readStream = (address: string, delimiter: string = '\n') => {
+  let listener: PluginListenerHandle | null = null;
+  let stopped = false;
+  const subscribers: Array<(data: string) => void> = [];
+
+  BluetoothSerial.startNotifications({ address, delimiter })
+    .then(() => {
+      BluetoothSerial.addListener('onRead', (data: { value: string }) => {
+        if (!stopped) {
+          subscribers.forEach((cb) => cb(data.value));
+        }
+      }).then((handle) => {
+        listener = handle;
+      });
+    })
+    .catch((err) => {
+      subscribers.forEach((cb) =>
+        cb(`Error starting notifications: ${err instanceof Error ? err.message : String(err)}`),
+      );
+    });
+
+  return {
+    subscribe(cb: (data: string) => void) {
+      subscribers.push(cb);
+
+      return {
+        unsubscribe() {
+          stopped = true;
+          if (listener) {
+            listener.remove();
+          }
+        },
+      };
+    },
+  };
+};
+
+// Usage example:
+const stream = readStream('00:11:22:33:44:55');
+const subscription = stream.subscribe((data) => {
+  console.log('Received:', data);
+});
+
+// To stop listening:
+// subscription.unsubscribe();
 ```
 
 ## API Documentation
@@ -40,12 +99,21 @@ Interface and type definitions can be found [here](./src/definitions.ts).
 
 # Release Process
 
-To make a new release of this plugin, follow these steps:
+## Prerequisites
 
-1. **Install CocoaPods (if not already installed):**
+Before making a release, ensure the following tools are installed:
+
+- **Java (JDK 11 or newer)**
+- **Gradle**
+- **CocoaPods**
+
+## Steps to make a new release
+
+1. **Verify the project:**
 
 ```sh
-sudo gem install cocoapods
+npm run verify
+npm run lint
 ```
 
 2. **Update the version:**
@@ -85,6 +153,8 @@ Repeat these steps for each new release. Update this section if the process chan
 
 ## Methods
 
+- [BluetoothSerial.checkBluetoothPermissions](#checkBluetoothPermissions)
+- [BluetoothSerial.getPairedDevices](#getPairedDevices)
 - [BluetoothSerial.isEnabled](#isEnabled)
 - [BluetoothSerial.canEnable](#canEnable)
 - [BluetoothSerial.enable](#enable)
@@ -101,6 +171,64 @@ Repeat these steps for each new release. Update this section if the process chan
 - [BluetoothSerial.startNotifications](#startNotifications)
 - [BluetoothSerial.stopNotifications](#stopNotifications)
 - [BluetoothSerial.write](#write)
+
+## checkBluetoothPermissions
+
+Checks if Bluetooth permissions are granted (Android only).
+
+`checkBluetoothPermissions(): Promise<boolean>;`
+
+### Description
+
+Checks whether the required Bluetooth permissions are granted on Android. Returns a promise that resolves to `true` if permissions are granted, or `false` otherwise.
+
+### Parameters
+
+None.
+
+### Quick Example
+
+```typescript
+BluetoothSerial.checkBluetoothPermissions()
+  .then((granted: boolean) => {
+    if (granted) {
+      console.log('Bluetooth permissions granted');
+    } else {
+      console.log('Bluetooth permissions not granted');
+    }
+  })
+  .catch(() => {
+    console.log('Error checking Bluetooth permissions');
+  });
+```
+
+## getPairedDevices
+
+Get a list of paired Bluetooth devices.
+
+`getPairedDevices(): Promise<{ devices: PairedBluetoothDevice[] }>;`
+
+### Description
+
+Returns a promise that resolves to an object containing an array of paired Bluetooth devices. Each device includes a name and address.
+
+### Parameters
+
+None.
+
+### Quick Example
+
+```typescript
+BluetoothSerial.getPairedDevices()
+  .then(({ devices }) => {
+    devices.forEach((device) => {
+      console.log(`Device: ${device.name}, Address: ${device.address}`);
+    });
+  })
+  .catch(() => {
+    console.log('Error retrieving paired devices');
+  });
+```
 
 ## isEnabled
 

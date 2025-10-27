@@ -1,6 +1,18 @@
 import type { PluginListenerHandle } from '@capacitor/core';
 
 export interface BluetoothSerialPlugin {
+  /**
+   * Checks if Bluetooth permissions are granted (Android only).
+   *
+   * @return {Promise<boolean>} A promise that resolves to true if permissions are granted, false otherwise.
+   */
+  checkBluetoothPermissions(): Promise<boolean>;
+
+  /**
+   * Checks whether Bluetooth is enabled on the device.
+   *
+   * @return {Promise<BluetoothState>} A promise that resolves to the current state of Bluetooth, encapsulated as a `BluetoothState` object.
+   */
   isEnabled(): Promise<BluetoothState>;
 
   /**
@@ -36,6 +48,13 @@ export interface BluetoothSerialPlugin {
   stopEnabledNotifications(): Promise<void>;
 
   scan(): Promise<BluetoothScanResult>;
+
+  /**
+   * Get a list of paired Bluetooth devices
+   *
+   * @return {Promise<{ devices: PairedBluetoothDevice[] }>} A promise that resolves to an object containing an array of paired devices with name and address.
+   */
+  getPairedDevices(): Promise<{ devices: PairedBluetoothDevice[] }>;
 
   connect(options: BluetoothConnectOptions): Promise<void>;
 
@@ -75,6 +94,11 @@ export interface BluetoothSerialPlugin {
    * @since 0.0.5
    */
   removeAllListeners(): Promise<void>;
+}
+
+export interface PairedBluetoothDevice {
+  name: string;
+  address: string;
 }
 
 export interface BluetoothState {
@@ -126,5 +150,12 @@ export interface BluetoothStartNotificationsOptions {
 }
 
 export interface BluetoothStopNotificationsOptions {
+  address: string;
+}
+
+export interface PairedBluetoothDevice {
+  /** Device name */
+  name: string;
+  /** Device MAC address */
   address: string;
 }

@@ -127,7 +127,7 @@ public class BluetoothSerialService {
     public String read(String address) throws IOException {
         BluetoothConnection connection = getConnection(address);
 
-        // TODO - criar exception customizada
+        // TODO - create custom exception
         if (connection == null) {
             Log.e(TAG, "No connection found");
             throw new IOException("No connection found");
@@ -212,7 +212,7 @@ public class BluetoothSerialService {
         }
     }
 
-    //TODO - nao esta funcionando corretamente
+    // TODO - not working correctly
     public void reconnect(String address) {
         BluetoothConnection oldConnection = connections.get(address);
         BluetoothConnection newConnection = new BluetoothConnection(oldConnection);
@@ -379,7 +379,7 @@ public class BluetoothSerialService {
                     outStream.write(buffer);
                 } catch (IOException ex) {
                     Log.e(TAG, "Exception during write again. Closing...", e);
-                    // TODO - encerrar thread
+                    // TODO - terminate thread
                 }*/
             }
         }

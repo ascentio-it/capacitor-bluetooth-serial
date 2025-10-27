@@ -1,6 +1,6 @@
 {
   "name": "@ascentio-it/capacitor-bluetooth-serial",
-  "version": "7.4.4",
+  "version": "7.5.0",
   "description": "Capacitor Bluetooth Serial Plugin",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -20,7 +20,7 @@
     "verify:web": "npm run build",
     "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",
     "fmt": "npm run eslint -- --fix && npm run prettier -- --write && npm run swiftlint -- --fix --format",
-    "eslint": "eslint . --ext ts",
+    "eslint": "eslint . --ext ts --ignore-pattern dist/",
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
     "swiftlint": "node-swiftlint",
     "docgen": "docgen --api BluetoothSerialPlugin --output-readme README.md --output-json dist/docs.json",

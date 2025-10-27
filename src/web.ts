@@ -3,19 +3,27 @@ import { WebPlugin } from '@capacitor/core';
 import type {
   BluetoothConnectOptions,
   BluetoothConnectResult,
-  BluetoothStopNotificationsOptions,
-  BluetoothStartNotificationsOptions,
   BluetoothReadOptions,
   BluetoothReadResult,
   BluetoothReadUntilOptions,
   BluetoothScanResult,
   BluetoothSerialPlugin,
+  BluetoothStartNotificationsOptions,
   BluetoothState,
+  BluetoothStopNotificationsOptions,
   BluetoothWriteOptions,
 } from './definitions';
 import { OptionsRequiredError } from './utils/errors';
 
 export class BluetoothSerialWeb extends WebPlugin implements BluetoothSerialPlugin {
+  async checkBluetoothPermissions(): Promise<boolean> {
+    throw this.unavailable('checkBluetoothPermissions is not available on web.');
+  }
+
+  async getPairedDevices(): Promise<{ devices: { name: string; address: string }[] }> {
+    throw this.unavailable('getPairedDevices is not available on web.');
+  }
+
   async isEnabled(): Promise<BluetoothState> {
     // not available on web
     return { enabled: true };

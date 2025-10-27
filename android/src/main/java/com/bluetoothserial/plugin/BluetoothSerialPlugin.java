@@ -14,6 +14,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.ArraySet;
 import android.util.Log;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.bluetoothserial.BluetoothDeviceHelper;
 import com.bluetoothserial.BluetoothSerialService;
 import com.bluetoothserial.KeyConstants;
@@ -232,6 +234,33 @@ public class BluetoothSerialPlugin extends Plugin {
             Log.e(getLogTag(), ERROR_SCAN_FAILED, e);
             call.reject(ERROR_SCAN_FAILED, e);
         }
+    }
+
+    @PluginMethod
+    @SuppressLint("MissingPermission")
+    public void getPairedDevices(PluginCall call) {
+        if (bluetoothAdapter == null) {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
+        if (bluetoothAdapter == null) {
+            call.reject("Bluetooth not supported on this device");
+            return;
+        }
+        if (!bluetoothAdapter.isEnabled()) {
+            call.reject("Bluetooth is disabled");
+            return;
+        }
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+        JSArray devicesArray = new JSArray();
+        for (BluetoothDevice device : pairedDevices) {
+            JSObject deviceObj = new JSObject();
+            deviceObj.put("name", device.getName());
+            deviceObj.put("address", device.getAddress());
+            devicesArray.put(deviceObj);
+        }
+        JSObject result = new JSObject();
+        result.put("devices", devicesArray);
+        call.resolve(result);
     }
 
     @PluginMethod
@@ -462,7 +491,25 @@ public class BluetoothSerialPlugin extends Plugin {
         return permissionStates;
     }
 
-    private boolean checkBluetoothPermissions(PluginCall call) {
+    @PluginMethod
+    public boolean checkBluetoothPermissions(PluginCall call) {
+        Context context = getContext();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // Android 12+ explicit permission request
+            if (
+                ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    getActivity(),
+                    new String[] { Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT },
+                    1
+                );
+                Log.d(getLogTag(), "Requesting Bluetooth permissions (Android 12+)");
+                call.reject("Bluetooth permissions required");
+                return false;
+            }
+        }
         return checkPermissions(call, getPermissionAlias());
     }
 
