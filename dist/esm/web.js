@@ -70,6 +70,15 @@ export class BluetoothSerialWeb extends WebPlugin {
         if (!options) {
             return Promise.reject(new OptionsRequiredError());
         }
+        // Validate that value is provided and is one of the supported types
+        if (!options.value) {
+            throw new Error('value is required');
+        }
+        if (typeof options.value !== 'string' &&
+            !(options.value instanceof ArrayBuffer) &&
+            !(options.value instanceof Uint8Array)) {
+            throw new Error('value must be string, ArrayBuffer, or Uint8Array');
+        }
         throw new Error('Method not implemented.');
     }
     async startNotifications(options) {

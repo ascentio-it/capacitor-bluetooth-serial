@@ -4,9 +4,54 @@ var core = require('@capacitor/core');
 
 const ON_BLUETOOTH_PERMISSION_RESULT_EVENT = 'onBluetoothPermissionResult';
 
-const BluetoothSerial = core.registerPlugin('BluetoothSerial', {
+const BluetoothSerialNative = core.registerPlugin('BluetoothSerial', {
     web: () => Promise.resolve().then(function () { return web; }).then((m) => new m.BluetoothSerialWeb()),
 });
+/**
+ * Helper function to convert ArrayBuffer or Uint8Array to base64 string
+ */
+function arrayBufferToBase64(buffer) {
+    let bytes;
+    if (buffer instanceof ArrayBuffer) {
+        bytes = new Uint8Array(buffer);
+    }
+    else {
+        bytes = buffer;
+    }
+    let binary = '';
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
+}
+/**
+ * Wrapper around the native plugin that handles binary data conversion
+ */
+const BluetoothSerial = {
+    ...BluetoothSerialNative,
+    /**
+     * Write data to a Bluetooth device.
+     * Supports string (legacy), ArrayBuffer, and Uint8Array.
+     * Binary data is converted to base64 for transport to native layer.
+     */
+    write: async (options) => {
+        const { address, value } = options;
+        if (typeof value === 'string') {
+            // Legacy string mode - pass through as-is
+            return BluetoothSerialNative.write({ address, value });
+        }
+        else if (value instanceof ArrayBuffer || value instanceof Uint8Array) {
+            // Binary mode - convert to base64 and send with different key
+            const dataBase64 = arrayBufferToBase64(value);
+            // Call native with dataBase64 parameter instead of value
+            return BluetoothSerialNative.write({ address, value: '', dataBase64 });
+        }
+        else {
+            throw new Error('Invalid data type for write. Expected string, ArrayBuffer, or Uint8Array.');
+        }
+    },
+};
 
 class OptionsRequiredError extends Error {
     constructor() {
@@ -83,6 +128,15 @@ class BluetoothSerialWeb extends core.WebPlugin {
     async write(options) {
         if (!options) {
             return Promise.reject(new OptionsRequiredError());
+        }
+        // Validate that value is provided and is one of the supported types
+        if (!options.value) {
+            throw new Error('value is required');
+        }
+        if (typeof options.value !== 'string' &&
+            !(options.value instanceof ArrayBuffer) &&
+            !(options.value instanceof Uint8Array)) {
+            throw new Error('value must be string, ArrayBuffer, or Uint8Array');
         }
         throw new Error('Method not implemented.');
     }

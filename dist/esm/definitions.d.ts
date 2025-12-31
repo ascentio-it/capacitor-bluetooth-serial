@@ -117,7 +117,12 @@ export interface BluetoothReadUntilOptions {
 }
 export interface BluetoothWriteOptions {
     address: string;
-    value: string;
+    /**
+     * Data to write. Can be a string (legacy, may corrupt binary data due to character encoding),
+     * an ArrayBuffer, or a Uint8Array (recommended for binary data like printer commands/bitmaps).
+     * When using binary types, data is sent as raw bytes without re-encoding.
+     */
+    value: string | ArrayBuffer | Uint8Array;
 }
 export interface BluetoothStartNotificationsOptions {
     address: string;

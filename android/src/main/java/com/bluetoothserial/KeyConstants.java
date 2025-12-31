@@ -7,6 +7,7 @@ public class KeyConstants {
     public static final String ADDRESS_UUID = "address";
     public static final String DELIMITER = "delimiter";
     public static final String VALUE = "value";
+    public static final String DATA_BASE64 = "dataBase64";
 
     // Events
     public static final String READ_EVENT = "onRead";
