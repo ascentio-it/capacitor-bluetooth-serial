@@ -17,12 +17,17 @@ function arrayBufferToBase64(buffer: ArrayBuffer | Uint8Array): string {
     bytes = buffer;
   }
 
-  let binary = '';
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
+  // For better performance with large binary data, use Array.from instead of string concatenation
+  return btoa(String.fromCharCode(...bytes));
+}
+
+/**
+ * Internal interface for native call with dataBase64
+ */
+interface NativeWriteOptions {
+  address: string;
+  value?: string;
+  dataBase64?: string;
 }
 
 /**
@@ -46,7 +51,8 @@ const BluetoothSerial: BluetoothSerialPlugin = {
       // Binary mode - convert to base64 and send with different key
       const dataBase64 = arrayBufferToBase64(value);
       // Call native with dataBase64 parameter instead of value
-      return BluetoothSerialNative.write({ address, value: '', dataBase64 } as any);
+      const nativeOptions: NativeWriteOptions = { address, value: '', dataBase64 };
+      return (BluetoothSerialNative.write as (options: NativeWriteOptions) => Promise<void>)(nativeOptions);
     } else {
       throw new Error('Invalid data type for write. Expected string, ArrayBuffer, or Uint8Array.');
     }
