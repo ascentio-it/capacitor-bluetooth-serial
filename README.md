@@ -24,6 +24,27 @@ Supported Capacitor versions:
 - Capacitor 4 : use version 0.6.x
 - Capacitor <= 3: Please use [capacitor-bluetooth-serial](https://github.com/agro1desenvolvimento/capacitor-bluetooth-serial) (<= v0.0.3)
 
+## New in v7.6.0: Binary Payload Support
+
+The plugin now supports sending binary data (ArrayBuffer/Uint8Array) in addition to strings. This is essential for:
+- Sending printer commands and bitmaps (ESC/POS, etc.)
+- Working with binary protocols without data corruption
+- Ensuring data integrity when transmitting arbitrary byte sequences
+
+Binary data is sent as raw bytes without character encoding, preventing UTF-8/UTF-16 re-encoding corruption that occurs with string-based transmission.
+
+**Quick example:**
+```typescript
+// Send ESC/POS printer initialization
+const escPosInit = new Uint8Array([0x1B, 0x40]);
+await BluetoothSerial.write({
+  address: '00:11:22:33:44:55',
+  value: escPosInit,
+});
+```
+
+See the [write method documentation](#write) for more details and examples.
+
 ## Usage
 
 Install the plugin via npm
@@ -683,15 +704,24 @@ Write data to the buffer.
 
 ### Description
 
-Function `write` writes data to the buffer.
+Function `write` writes data to the buffer. Supports both string and binary data (ArrayBuffer/Uint8Array).
+
+**Binary Payload Support (v7.6.0+):** The write method now accepts binary data types (ArrayBuffer or Uint8Array) in addition to strings. This is especially useful for sending printer commands, bitmaps, or other binary protocols (e.g., ESC/POS) without data corruption from character encoding.
+
+- **String mode (legacy):** Data is converted to bytes using UTF-8 encoding. This may corrupt arbitrary binary data and is not recommended for binary protocols.
+- **Binary mode (recommended for binary data):** Data is sent as raw bytes without any character re-encoding, ensuring data integrity.
 
 ### Parameters
 
 - { **address** }: Identifier of the remote device.
-- { **value** }: String to send.
+- { **value** }: Data to send. Can be:
+  - `string` - Text data (UTF-8 encoded, may corrupt binary data)
+  - `ArrayBuffer` - Binary data (recommended for binary protocols)
+  - `Uint8Array` - Binary data (recommended for binary protocols)
 
-### Quick Example
+### Quick Examples
 
+**String mode (legacy):**
 ```typescript
 BluetoothSerial.write({
   address: '00:11:22:33:44:55',
@@ -704,3 +734,62 @@ BluetoothSerial.write({
     console.log('Error writing data to device');
   });
 ```
+
+**Binary mode (recommended for printer commands, bitmaps, etc.):**
+```typescript
+// Example: Send ESC/POS printer initialization command
+const escPosInit = new Uint8Array([0x1B, 0x40]); // ESC @ - Initialize printer
+
+BluetoothSerial.write({
+  address: '00:11:22:33:44:55',
+  value: escPosInit,
+})
+  .then(() => {
+    console.log('Binary data sent to device');
+  })
+  .catch(() => {
+    console.log('Error writing data to device');
+  });
+```
+
+**Binary mode with ArrayBuffer:**
+```typescript
+// Example: Send binary bitmap data
+const bitmapData = new Uint8Array([0x00, 0xFF, 0x7F, 0x80]);
+
+BluetoothSerial.write({
+  address: '00:11:22:33:44:55',
+  value: bitmapData.buffer, // Can also pass the ArrayBuffer directly
+})
+  .then(() => {
+    console.log('Bitmap sent to device');
+  })
+  .catch(() => {
+    console.log('Error writing bitmap to device');
+  });
+```
+
+### Migration Guide
+
+If you're currently using string mode for binary data, we recommend migrating to binary mode:
+
+**Before (string mode - may corrupt data):**
+```typescript
+// This may corrupt binary data due to UTF-8 encoding
+BluetoothSerial.write({
+  address: '00:11:22:33:44:55',
+  value: '\x1B\x40',
+});
+```
+
+**After (binary mode - preserves data integrity):**
+```typescript
+// This ensures data is sent as raw bytes
+const command = new Uint8Array([0x1B, 0x40]);
+BluetoothSerial.write({
+  address: '00:11:22:33:44:55',
+  value: command,
+});
+```
+
+**Note:** String mode is still supported for backward compatibility, but binary mode is recommended when working with binary protocols or data.

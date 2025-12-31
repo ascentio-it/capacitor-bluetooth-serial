@@ -1,6 +1,6 @@
 {
   "name": "@ascentio-it/capacitor-bluetooth-serial",
-  "version": "7.5.3",
+  "version": "7.6.0",
   "description": "Capacitor Bluetooth Serial Plugin",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
