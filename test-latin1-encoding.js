@@ -18,14 +18,16 @@ function bytesToLatin1String(bytes) {
 // Helper: Display hex dump
 function hexDump(bytes, maxBytes = 64) {
   const slice = bytes.slice(0, maxBytes);
-  return Array.from(slice).map(b => b.toString(16).padStart(2, '0').toUpperCase()).join(' ');
+  return Array.from(slice)
+    .map((b) => b.toString(16).padStart(2, '0').toUpperCase())
+    .join(' ');
 }
 
 // Helper: Simulate Java ISO-8859-1 decoding
 function javaDecodeISO88591(latin1String) {
   const bytes = new Uint8Array(latin1String.length);
   for (let i = 0; i < latin1String.length; i++) {
-    bytes[i] = latin1String.charCodeAt(i) & 0xFF;
+    bytes[i] = latin1String.charCodeAt(i) & 0xff;
   }
   return bytes;
 }
@@ -34,7 +36,7 @@ console.log('=== Latin-1 Binary Passthrough Test ===\n');
 
 // Test 1: Deterministic test buffer from requirements
 console.log('Test 1: Deterministic test buffer');
-const testBuffer = new Uint8Array([0x1B, 0x40, 0x1D, 0x76, 0x30, 0x00, 0x30, 0x00, 0x78, 0x00]);
+const testBuffer = new Uint8Array([0x1b, 0x40, 0x1d, 0x76, 0x30, 0x00, 0x30, 0x00, 0x78, 0x00]);
 console.log('Original bytes:', hexDump(testBuffer));
 
 const latin1String = bytesToLatin1String(testBuffer);
@@ -66,10 +68,17 @@ console.log();
 // Test 3: ESC/POS commands (realistic example)
 console.log('Test 3: ESC/POS printer commands');
 const escPosInit = new Uint8Array([
-  0x1B, 0x40,       // ESC @ (Initialize printer)
-  0x1B, 0x61, 0x01, // ESC a 1 (Center align)
-  0x48, 0x65, 0x6C, 0x6C, 0x6F, // "Hello"
-  0x0A              // Line feed
+  0x1b,
+  0x40, // ESC @ (Initialize printer)
+  0x1b,
+  0x61,
+  0x01, // ESC a 1 (Center align)
+  0x48,
+  0x65,
+  0x6c,
+  0x6c,
+  0x6f, // "Hello"
+  0x0a, // Line feed
 ]);
 
 console.log('ESC/POS commands:', hexDump(escPosInit));
@@ -83,7 +92,7 @@ console.log();
 
 // Test 4: Null bytes preservation (critical for ESC/POS)
 console.log('Test 4: Null bytes (0x00) preservation');
-const withNulls = new Uint8Array([0x1D, 0x76, 0x30, 0x00, 0x30, 0x00, 0x78, 0x00]);
+const withNulls = new Uint8Array([0x1d, 0x76, 0x30, 0x00, 0x30, 0x00, 0x78, 0x00]);
 console.log('With null bytes:', hexDump(withNulls));
 
 const latin1Nulls = bytesToLatin1String(withNulls);

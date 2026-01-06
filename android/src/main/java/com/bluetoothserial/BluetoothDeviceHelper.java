@@ -37,13 +37,17 @@ public class BluetoothDeviceHelper implements Serializable {
 
         try {
             byte[] raw = value.getBytes("ISO-8859-1");
-            // Optional debug: log first 64 bytes as hex
-            StringBuilder sb = new StringBuilder();
-            int max = Math.min(raw.length, 64);
-            for (int i = 0; i < max; i++) {
-                sb.append(String.format("%02X ", raw[i]));
+            // Optional debug: log first 64 bytes as hex (only when log level is INFO or lower)
+            if (android.util.Log.isLoggable("BTSerial", android.util.Log.INFO)) {
+                StringBuilder sb = new StringBuilder();
+                int max = Math.min(raw.length, 64);
+                for (int i = 0; i < max; i++) {
+                    int b = raw[i] & 0xFF;
+                    sb.append(Integer.toHexString(0x100 | b).substring(1).toUpperCase());
+                    sb.append(' ');
+                }
+                android.util.Log.i("BTSerial", "native-recv-hex: " + sb.toString());
             }
-            android.util.Log.i("BTSerial", "native-recv-hex: " + sb.toString());
             return raw;
         } catch (java.io.UnsupportedEncodingException e) {
             // Fallback to platform default if ISO-8859-1 is not available
