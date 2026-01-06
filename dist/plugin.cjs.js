@@ -5,105 +5,110 @@ var core = require('@capacitor/core');
 const ON_BLUETOOTH_PERMISSION_RESULT_EVENT = 'onBluetoothPermissionResult';
 
 const BluetoothSerial = core.registerPlugin('BluetoothSerial', {
-    web: () => Promise.resolve().then(function () { return web; }).then((m) => new m.BluetoothSerialWeb()),
+  web: () =>
+    Promise.resolve()
+      .then(function () {
+        return web;
+      })
+      .then((m) => new m.BluetoothSerialWeb()),
 });
 
 class OptionsRequiredError extends Error {
-    constructor() {
-        super('This method requires an options argument');
-    }
+  constructor() {
+    super('This method requires an options argument');
+  }
 }
 
 class BluetoothSerialWeb extends core.WebPlugin {
-    async checkBluetoothPermissions() {
-        throw this.unavailable('checkBluetoothPermissions is not available on web.');
+  async checkBluetoothPermissions() {
+    throw this.unavailable('checkBluetoothPermissions is not available on web.');
+  }
+  async getPairedDevices() {
+    throw this.unavailable('getPairedDevices is not available on web.');
+  }
+  async isEnabled() {
+    // not available on web
+    return { enabled: true };
+  }
+  async canEnable() {
+    // not available on web
+    return { enabled: false };
+  }
+  async enable() {
+    throw this.unavailable('enable is not available on web.');
+  }
+  disable() {
+    throw this.unavailable('disable is not available on web.');
+  }
+  startEnabledNotifications() {
+    throw this.unavailable('disable is not available on web.');
+  }
+  stopEnabledNotifications() {
+    throw this.unavailable('disable is not available on web.');
+  }
+  async scan() {
+    throw new Error('Method not implemented.');
+  }
+  async connect(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    async getPairedDevices() {
-        throw this.unavailable('getPairedDevices is not available on web.');
+    throw new Error('Method not implemented.');
+  }
+  async connectInsecure(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    async isEnabled() {
-        // not available on web
-        return { enabled: true };
+    throw new Error('Method not implemented.');
+  }
+  async disconnect(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    async canEnable() {
-        // not available on web
-        return { enabled: false };
+    throw new Error('Method not implemented.');
+  }
+  async isConnected(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    async enable() {
-        throw this.unavailable('enable is not available on web.');
+    throw new Error('Method not implemented.');
+  }
+  async read(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    disable() {
-        throw this.unavailable('disable is not available on web.');
+    throw new Error('Method not implemented.');
+  }
+  async readUntil(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    startEnabledNotifications() {
-        throw this.unavailable('disable is not available on web.');
+    throw new Error('Method not implemented.');
+  }
+  async write(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    stopEnabledNotifications() {
-        throw this.unavailable('disable is not available on web.');
+    throw new Error('Method not implemented.');
+  }
+  async startNotifications(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    async scan() {
-        throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
+  }
+  async stopNotifications(options) {
+    if (!options) {
+      return Promise.reject(new OptionsRequiredError());
     }
-    async connect(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
-    async connectInsecure(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
-    async disconnect(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
-    async isConnected(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
-    async read(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
-    async readUntil(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
-    async write(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
-    async startNotifications(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
-    async stopNotifications(options) {
-        if (!options) {
-            return Promise.reject(new OptionsRequiredError());
-        }
-        throw new Error('Method not implemented.');
-    }
+    throw new Error('Method not implemented.');
+  }
 }
 new BluetoothSerialWeb();
 
-var web = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    BluetoothSerialWeb: BluetoothSerialWeb
+var web = /*#__PURE__*/ Object.freeze({
+  __proto__: null,
+  BluetoothSerialWeb: BluetoothSerialWeb,
 });
 
 exports.BluetoothSerial = BluetoothSerial;
