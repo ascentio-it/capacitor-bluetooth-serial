@@ -36,24 +36,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-@CapacitorPlugin(
-    name = "BluetoothSerial",
-    permissions = {
-        @Permission(
-            strings = {
+@CapacitorPlugin(name = "BluetoothSerial", permissions = {
+        @Permission(strings = {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.BLUETOOTH,
                 Manifest.permission.BLUETOOTH_ADMIN
-            },
-            alias = BluetoothSerialPlugin.BLUETOOTH
-        ),
-        @Permission(
-            strings = { Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN },
-            alias = BluetoothSerialPlugin.BLUETOOTH_API_31
-        )
-    }
-)
+        }, alias = BluetoothSerialPlugin.BLUETOOTH),
+        @Permission(strings = { Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_SCAN }, alias = BluetoothSerialPlugin.BLUETOOTH_API_31)
+})
 public class BluetoothSerialPlugin extends Plugin {
 
     // Permission alias constants
@@ -348,32 +340,10 @@ public class BluetoothSerialPlugin extends Plugin {
             return;
         }
 
-        byte[] data;
+        String value = call.getString(KeyConstants.VALUE);
+        Log.i(getLogTag(), value);
 
-        // Check if binary data (base64) is provided
-        String dataBase64 = call.getString(KeyConstants.DATA_BASE64);
-        if (dataBase64 != null && !dataBase64.isEmpty()) {
-            // Decode base64 to raw bytes for binary data
-            try {
-                data = android.util.Base64.decode(dataBase64, android.util.Base64.DEFAULT);
-                Log.i(getLogTag(), "Writing " + data.length + " bytes of binary data");
-            } catch (IllegalArgumentException e) {
-                Log.e(getLogTag(), "Failed to decode base64 data", e);
-                call.reject("Invalid base64 data", e);
-                return;
-            }
-        } else {
-            // Legacy string mode - convert string to bytes
-            String value = call.getString(KeyConstants.VALUE);
-            if (value == null) {
-                call.reject("Either 'value' or 'dataBase64' must be provided");
-                return;
-            }
-            Log.i(getLogTag(), "Writing string value: " + value);
-            data = BluetoothDeviceHelper.toByteArray(value);
-        }
-
-        boolean success = getService().write(address, data);
+        boolean success = getService().write(address, BluetoothDeviceHelper.toByteArray(value));
 
         if (success) {
             call.resolve();
@@ -454,8 +424,7 @@ public class BluetoothSerialPlugin extends Plugin {
                                     Log.e(getLogTag(), "Error in notifyListeners: " + e.getLocalizedMessage(), e);
                                 }
                             }
-                        }
-                    );
+                        });
                 call.resolve();
             } else {
                 call.reject("Required Android API >= " + android.os.Build.VERSION_CODES.N);

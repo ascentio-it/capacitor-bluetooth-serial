@@ -32,7 +32,9 @@
           }
         ],
         "docs": "Checks whether Bluetooth is enabled on the device.",
-        "complexTypes": ["BluetoothState"],
+        "complexTypes": [
+          "BluetoothState"
+        ],
         "slug": "isenabled"
       },
       {
@@ -47,7 +49,9 @@
           }
         ],
         "docs": "Checks whether Bluetooth can be enabled on the device.",
-        "complexTypes": ["BluetoothState"],
+        "complexTypes": [
+          "BluetoothState"
+        ],
         "slug": "canenable"
       },
       {
@@ -62,7 +66,9 @@
           }
         ],
         "docs": "Enables the Bluetooth functionality on the device.",
-        "complexTypes": ["BluetoothState"],
+        "complexTypes": [
+          "BluetoothState"
+        ],
         "slug": "enable"
       },
       {
@@ -77,7 +83,9 @@
           }
         ],
         "docs": "Disable bluetooth (turn bluetooth off)",
-        "complexTypes": ["BluetoothState"],
+        "complexTypes": [
+          "BluetoothState"
+        ],
         "slug": "disable"
       },
       {
@@ -117,7 +125,9 @@
         "returns": "Promise<BluetoothScanResult>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothScanResult"],
+        "complexTypes": [
+          "BluetoothScanResult"
+        ],
         "slug": "scan"
       },
       {
@@ -132,7 +142,9 @@
           }
         ],
         "docs": "Get a list of paired Bluetooth devices",
-        "complexTypes": ["PairedBluetoothDevice"],
+        "complexTypes": [
+          "PairedBluetoothDevice"
+        ],
         "slug": "getpaireddevices"
       },
       {
@@ -148,7 +160,9 @@
         "returns": "Promise<void>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothConnectOptions"],
+        "complexTypes": [
+          "BluetoothConnectOptions"
+        ],
         "slug": "connect"
       },
       {
@@ -164,7 +178,9 @@
         "returns": "Promise<void>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothConnectOptions"],
+        "complexTypes": [
+          "BluetoothConnectOptions"
+        ],
         "slug": "connectinsecure"
       },
       {
@@ -180,7 +196,9 @@
         "returns": "Promise<void>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothConnectOptions"],
+        "complexTypes": [
+          "BluetoothConnectOptions"
+        ],
         "slug": "disconnect"
       },
       {
@@ -196,7 +214,10 @@
         "returns": "Promise<BluetoothConnectResult>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothConnectResult", "BluetoothConnectOptions"],
+        "complexTypes": [
+          "BluetoothConnectResult",
+          "BluetoothConnectOptions"
+        ],
         "slug": "isconnected"
       },
       {
@@ -212,7 +233,10 @@
         "returns": "Promise<BluetoothReadResult>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothReadResult", "BluetoothReadOptions"],
+        "complexTypes": [
+          "BluetoothReadResult",
+          "BluetoothReadOptions"
+        ],
         "slug": "read"
       },
       {
@@ -228,7 +252,10 @@
         "returns": "Promise<BluetoothReadResult>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothReadResult", "BluetoothReadUntilOptions"],
+        "complexTypes": [
+          "BluetoothReadResult",
+          "BluetoothReadUntilOptions"
+        ],
         "slug": "readuntil"
       },
       {
@@ -244,7 +271,9 @@
         "returns": "Promise<void>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothWriteOptions"],
+        "complexTypes": [
+          "BluetoothWriteOptions"
+        ],
         "slug": "write"
       },
       {
@@ -260,7 +289,9 @@
         "returns": "Promise<void>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothStartNotificationsOptions"],
+        "complexTypes": [
+          "BluetoothStartNotificationsOptions"
+        ],
         "slug": "startnotifications"
       },
       {
@@ -276,7 +307,9 @@
         "returns": "Promise<void>",
         "tags": [],
         "docs": "",
-        "complexTypes": ["BluetoothStopNotificationsOptions"],
+        "complexTypes": [
+          "BluetoothStopNotificationsOptions"
+        ],
         "slug": "stopnotifications"
       },
       {
@@ -302,7 +335,10 @@
           }
         ],
         "docs": "Listen for device input value",
-        "complexTypes": ["PluginListenerHandle", "BluetoothReadResult"],
+        "complexTypes": [
+          "PluginListenerHandle",
+          "BluetoothReadResult"
+        ],
         "slug": "addlisteneronread-"
       },
       {
@@ -328,7 +364,10 @@
           }
         ],
         "docs": "Listen for device input value",
-        "complexTypes": ["PluginListenerHandle", "BluetoothReadResult"],
+        "complexTypes": [
+          "PluginListenerHandle",
+          "BluetoothReadResult"
+        ],
         "slug": "addlisteneronread-"
       },
       {
@@ -354,7 +393,10 @@
           }
         ],
         "docs": "Listen for bluetooth state changed",
-        "complexTypes": ["PluginListenerHandle", "PermissionState"],
+        "complexTypes": [
+          "PluginListenerHandle",
+          "PermissionState"
+        ],
         "slug": "addlisteneronbluetoothpermissionresult-"
       },
       {
@@ -403,7 +445,9 @@
           "name": "devices",
           "tags": [],
           "docs": "",
-          "complexTypes": ["BluetoothDevice"],
+          "complexTypes": [
+            "BluetoothDevice"
+          ],
           "type": "BluetoothDevice[]"
         }
       ]
@@ -586,796 +630,9 @@
         {
           "name": "value",
           "tags": [],
-          "docs": "Data to write. Can be a string (legacy, may corrupt binary data due to character encoding),\nan ArrayBuffer, or a Uint8Array (recommended for binary data like printer commands/bitmaps).\nWhen using binary types, data is sent as raw bytes without re-encoding.",
-          "complexTypes": ["ArrayBuffer", "Uint8Array"],
-          "type": "string | ArrayBuffer | Uint8Array"
-        }
-      ]
-    },
-    {
-      "name": "ArrayBuffer",
-      "slug": "arraybuffer",
-      "docs": "Represents a raw buffer of binary data, which is used to store data for the\r\ndifferent typed arrays. ArrayBuffers cannot be read from or written to directly,\r\nbut can be passed to a typed array or DataView Object to interpret the raw\r\nbuffer as needed.",
-      "tags": [],
-      "methods": [
-        {
-          "name": "slice",
-          "signature": "(begin: number, end?: number | undefined) => ArrayBuffer",
-          "parameters": [
-            {
-              "name": "begin",
-              "docs": "",
-              "type": "number"
-            },
-            {
-              "name": "end",
-              "docs": "",
-              "type": "number | undefined"
-            }
-          ],
-          "returns": "ArrayBuffer",
-          "tags": [],
-          "docs": "Returns a section of an ArrayBuffer.",
-          "complexTypes": ["ArrayBuffer"],
-          "slug": "slice"
-        }
-      ],
-      "properties": [
-        {
-          "name": "byteLength",
-          "tags": [],
-          "docs": "Read-only. The length of the ArrayBuffer (in bytes).",
-          "complexTypes": [],
-          "type": "number"
-        }
-      ]
-    },
-    {
-      "name": "Uint8Array",
-      "slug": "uint8array",
-      "docs": "A typed array of 8-bit unsigned integer values. The contents are initialized to 0. If the\r\nrequested number of bytes could not be allocated an exception is raised.",
-      "tags": [],
-      "methods": [
-        {
-          "name": "copyWithin",
-          "signature": "(target: number, start: number, end?: number | undefined) => this",
-          "parameters": [
-            {
-              "name": "target",
-              "docs": "If target is negative, it is treated as length+target where length is the\r\nlength of the array.",
-              "type": "number"
-            },
-            {
-              "name": "start",
-              "docs": "If start is negative, it is treated as length+start. If end is negative, it\r\nis treated as length+end.",
-              "type": "number"
-            },
-            {
-              "name": "end",
-              "docs": "If not specified, length of the this object is used as its default value.",
-              "type": "number | undefined"
-            }
-          ],
-          "returns": "this",
-          "tags": [
-            {
-              "name": "param",
-              "text": "target If target is negative, it is treated as length+target where length is the\r\nlength of the array."
-            },
-            {
-              "name": "param",
-              "text": "start If start is negative, it is treated as length+start. If end is negative, it\r\nis treated as length+end."
-            },
-            {
-              "name": "param",
-              "text": "end If not specified, length of the this object is used as its default value."
-            }
-          ],
-          "docs": "Returns the this object after copying a section of the array identified by start and end\r\nto the same array starting at position target",
-          "complexTypes": [],
-          "slug": "copywithin"
-        },
-        {
-          "name": "every",
-          "signature": "(predicate: (value: number, index: number, array: Uint8Array) => unknown, thisArg?: any) => boolean",
-          "parameters": [
-            {
-              "name": "predicate",
-              "docs": "A function that accepts up to three arguments. The every method calls\r\nthe predicate function for each element in the array until the predicate returns a value\r\nwhich is coercible to the Boolean value false, or until the end of the array.",
-              "type": "(value: number, index: number, array: Uint8Array) => unknown"
-            },
-            {
-              "name": "thisArg",
-              "docs": "An object to which the this keyword can refer in the predicate function.\r\nIf thisArg is omitted, undefined is used as the this value.",
-              "type": "any"
-            }
-          ],
-          "returns": "boolean",
-          "tags": [
-            {
-              "name": "param",
-              "text": "predicate A function that accepts up to three arguments. The every method calls\r\nthe predicate function for each element in the array until the predicate returns a value\r\nwhich is coercible to the Boolean value false, or until the end of the array."
-            },
-            {
-              "name": "param",
-              "text": "thisArg An object to which the this keyword can refer in the predicate function.\r\nIf thisArg is omitted, undefined is used as the this value."
-            }
-          ],
-          "docs": "Determines whether all the members of an array satisfy the specified test.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "every"
-        },
-        {
-          "name": "fill",
-          "signature": "(value: number, start?: number | undefined, end?: number | undefined) => this",
-          "parameters": [
-            {
-              "name": "value",
-              "docs": "value to fill array section with",
-              "type": "number"
-            },
-            {
-              "name": "start",
-              "docs": "index to start filling the array at. If start is negative, it is treated as\r\nlength+start where length is the length of the array.",
-              "type": "number | undefined"
-            },
-            {
-              "name": "end",
-              "docs": "index to stop filling the array at. If end is negative, it is treated as\r\nlength+end.",
-              "type": "number | undefined"
-            }
-          ],
-          "returns": "this",
-          "tags": [
-            {
-              "name": "param",
-              "text": "value value to fill array section with"
-            },
-            {
-              "name": "param",
-              "text": "start index to start filling the array at. If start is negative, it is treated as\r\nlength+start where length is the length of the array."
-            },
-            {
-              "name": "param",
-              "text": "end index to stop filling the array at. If end is negative, it is treated as\r\nlength+end."
-            }
-          ],
-          "docs": "Returns the this object after filling the section identified by start and end with value",
-          "complexTypes": [],
-          "slug": "fill"
-        },
-        {
-          "name": "filter",
-          "signature": "(predicate: (value: number, index: number, array: Uint8Array) => any, thisArg?: any) => Uint8Array",
-          "parameters": [
-            {
-              "name": "predicate",
-              "docs": "A function that accepts up to three arguments. The filter method calls\r\nthe predicate function one time for each element in the array.",
-              "type": "(value: number, index: number, array: Uint8Array) => any"
-            },
-            {
-              "name": "thisArg",
-              "docs": "An object to which the this keyword can refer in the predicate function.\r\nIf thisArg is omitted, undefined is used as the this value.",
-              "type": "any"
-            }
-          ],
-          "returns": "Uint8Array",
-          "tags": [
-            {
-              "name": "param",
-              "text": "predicate A function that accepts up to three arguments. The filter method calls\r\nthe predicate function one time for each element in the array."
-            },
-            {
-              "name": "param",
-              "text": "thisArg An object to which the this keyword can refer in the predicate function.\r\nIf thisArg is omitted, undefined is used as the this value."
-            }
-          ],
-          "docs": "Returns the elements of an array that meet the condition specified in a callback function.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "filter"
-        },
-        {
-          "name": "find",
-          "signature": "(predicate: (value: number, index: number, obj: Uint8Array) => boolean, thisArg?: any) => number | undefined",
-          "parameters": [
-            {
-              "name": "predicate",
-              "docs": "find calls predicate once for each element of the array, in ascending\r\norder, until it finds one where predicate returns true. If such an element is found, find\r\nimmediately returns that element value. Otherwise, find returns undefined.",
-              "type": "(value: number, index: number, obj: Uint8Array) => boolean"
-            },
-            {
-              "name": "thisArg",
-              "docs": "If provided, it will be used as the this value for each invocation of\r\npredicate. If it is not provided, undefined is used instead.",
-              "type": "any"
-            }
-          ],
-          "returns": "number | undefined",
-          "tags": [
-            {
-              "name": "param",
-              "text": "predicate find calls predicate once for each element of the array, in ascending\r\norder, until it finds one where predicate returns true. If such an element is found, find\r\nimmediately returns that element value. Otherwise, find returns undefined."
-            },
-            {
-              "name": "param",
-              "text": "thisArg If provided, it will be used as the this value for each invocation of\r\npredicate. If it is not provided, undefined is used instead."
-            }
-          ],
-          "docs": "Returns the value of the first element in the array where predicate is true, and undefined\r\notherwise.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "find"
-        },
-        {
-          "name": "findIndex",
-          "signature": "(predicate: (value: number, index: number, obj: Uint8Array) => boolean, thisArg?: any) => number",
-          "parameters": [
-            {
-              "name": "predicate",
-              "docs": "find calls predicate once for each element of the array, in ascending\r\norder, until it finds one where predicate returns true. If such an element is found,\r\nfindIndex immediately returns that element index. Otherwise, findIndex returns -1.",
-              "type": "(value: number, index: number, obj: Uint8Array) => boolean"
-            },
-            {
-              "name": "thisArg",
-              "docs": "If provided, it will be used as the this value for each invocation of\r\npredicate. If it is not provided, undefined is used instead.",
-              "type": "any"
-            }
-          ],
-          "returns": "number",
-          "tags": [
-            {
-              "name": "param",
-              "text": "predicate find calls predicate once for each element of the array, in ascending\r\norder, until it finds one where predicate returns true. If such an element is found,\r\nfindIndex immediately returns that element index. Otherwise, findIndex returns -1."
-            },
-            {
-              "name": "param",
-              "text": "thisArg If provided, it will be used as the this value for each invocation of\r\npredicate. If it is not provided, undefined is used instead."
-            }
-          ],
-          "docs": "Returns the index of the first element in the array where predicate is true, and -1\r\notherwise.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "findindex"
-        },
-        {
-          "name": "forEach",
-          "signature": "(callbackfn: (value: number, index: number, array: Uint8Array) => void, thisArg?: any) => void",
-          "parameters": [
-            {
-              "name": "callbackfn",
-              "docs": "A function that accepts up to three arguments. forEach calls the\r\ncallbackfn function one time for each element in the array.",
-              "type": "(value: number, index: number, array: Uint8Array) => void"
-            },
-            {
-              "name": "thisArg",
-              "docs": "An object to which the this keyword can refer in the callbackfn function.\r\nIf thisArg is omitted, undefined is used as the this value.",
-              "type": "any"
-            }
-          ],
-          "returns": "void",
-          "tags": [
-            {
-              "name": "param",
-              "text": "callbackfn A function that accepts up to three arguments. forEach calls the\r\ncallbackfn function one time for each element in the array."
-            },
-            {
-              "name": "param",
-              "text": "thisArg An object to which the this keyword can refer in the callbackfn function.\r\nIf thisArg is omitted, undefined is used as the this value."
-            }
-          ],
-          "docs": "Performs the specified action for each element in an array.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "foreach"
-        },
-        {
-          "name": "indexOf",
-          "signature": "(searchElement: number, fromIndex?: number | undefined) => number",
-          "parameters": [
-            {
-              "name": "searchElement",
-              "docs": "The value to locate in the array.",
-              "type": "number"
-            },
-            {
-              "name": "fromIndex",
-              "docs": "The array index at which to begin the search. If fromIndex is omitted, the\r\nsearch starts at index 0.",
-              "type": "number | undefined"
-            }
-          ],
-          "returns": "number",
-          "tags": [
-            {
-              "name": "param",
-              "text": "searchElement The value to locate in the array."
-            },
-            {
-              "name": "param",
-              "text": "fromIndex The array index at which to begin the search. If fromIndex is omitted, the\r\nsearch starts at index 0."
-            }
-          ],
-          "docs": "Returns the index of the first occurrence of a value in an array.",
-          "complexTypes": [],
-          "slug": "indexof"
-        },
-        {
-          "name": "join",
-          "signature": "(separator?: string | undefined) => string",
-          "parameters": [
-            {
-              "name": "separator",
-              "docs": "A string used to separate one element of an array from the next in the\r\nresulting String. If omitted, the array elements are separated with a comma.",
-              "type": "string | undefined"
-            }
-          ],
-          "returns": "string",
-          "tags": [
-            {
-              "name": "param",
-              "text": "separator A string used to separate one element of an array from the next in the\r\nresulting String. If omitted, the array elements are separated with a comma."
-            }
-          ],
-          "docs": "Adds all the elements of an array separated by the specified separator string.",
-          "complexTypes": [],
-          "slug": "join"
-        },
-        {
-          "name": "lastIndexOf",
-          "signature": "(searchElement: number, fromIndex?: number | undefined) => number",
-          "parameters": [
-            {
-              "name": "searchElement",
-              "docs": "The value to locate in the array.",
-              "type": "number"
-            },
-            {
-              "name": "fromIndex",
-              "docs": "The array index at which to begin the search. If fromIndex is omitted, the\r\nsearch starts at index 0.",
-              "type": "number | undefined"
-            }
-          ],
-          "returns": "number",
-          "tags": [
-            {
-              "name": "param",
-              "text": "searchElement The value to locate in the array."
-            },
-            {
-              "name": "param",
-              "text": "fromIndex The array index at which to begin the search. If fromIndex is omitted, the\r\nsearch starts at index 0."
-            }
-          ],
-          "docs": "Returns the index of the last occurrence of a value in an array.",
-          "complexTypes": [],
-          "slug": "lastindexof"
-        },
-        {
-          "name": "map",
-          "signature": "(callbackfn: (value: number, index: number, array: Uint8Array) => number, thisArg?: any) => Uint8Array",
-          "parameters": [
-            {
-              "name": "callbackfn",
-              "docs": "A function that accepts up to three arguments. The map method calls the\r\ncallbackfn function one time for each element in the array.",
-              "type": "(value: number, index: number, array: Uint8Array) => number"
-            },
-            {
-              "name": "thisArg",
-              "docs": "An object to which the this keyword can refer in the callbackfn function.\r\nIf thisArg is omitted, undefined is used as the this value.",
-              "type": "any"
-            }
-          ],
-          "returns": "Uint8Array",
-          "tags": [
-            {
-              "name": "param",
-              "text": "callbackfn A function that accepts up to three arguments. The map method calls the\r\ncallbackfn function one time for each element in the array."
-            },
-            {
-              "name": "param",
-              "text": "thisArg An object to which the this keyword can refer in the callbackfn function.\r\nIf thisArg is omitted, undefined is used as the this value."
-            }
-          ],
-          "docs": "Calls a defined callback function on each element of an array, and returns an array that\r\ncontains the results.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "map"
-        },
-        {
-          "name": "reduce",
-          "signature": "(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: Uint8Array) => number) => number",
-          "parameters": [
-            {
-              "name": "callbackfn",
-              "docs": "A function that accepts up to four arguments. The reduce method calls the\r\ncallbackfn function one time for each element in the array.",
-              "type": "(previousValue: number, currentValue: number, currentIndex: number, array: Uint8Array) => number"
-            }
-          ],
-          "returns": "number",
-          "tags": [
-            {
-              "name": "param",
-              "text": "callbackfn A function that accepts up to four arguments. The reduce method calls the\r\ncallbackfn function one time for each element in the array."
-            },
-            {
-              "name": "param",
-              "text": "initialValue If initialValue is specified, it is used as the initial value to start\r\nthe accumulation. The first call to the callbackfn function provides this value as an argument\r\ninstead of an array value."
-            }
-          ],
-          "docs": "Calls the specified callback function for all the elements in an array. The return value of\r\nthe callback function is the accumulated result, and is provided as an argument in the next\r\ncall to the callback function.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "reduce"
-        },
-        {
-          "name": "reduce",
-          "signature": "(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: Uint8Array) => number, initialValue: number) => number",
-          "parameters": [
-            {
-              "name": "callbackfn",
-              "docs": "",
-              "type": "(previousValue: number, currentValue: number, currentIndex: number, array: Uint8Array) => number"
-            },
-            {
-              "name": "initialValue",
-              "docs": "",
-              "type": "number"
-            }
-          ],
-          "returns": "number",
-          "tags": [],
-          "docs": "",
-          "complexTypes": ["Uint8Array"],
-          "slug": "reduce"
-        },
-        {
-          "name": "reduce",
-          "signature": "<U>(callbackfn: (previousValue: U, currentValue: number, currentIndex: number, array: Uint8Array) => U, initialValue: U) => U",
-          "parameters": [
-            {
-              "name": "callbackfn",
-              "docs": "A function that accepts up to four arguments. The reduce method calls the\r\ncallbackfn function one time for each element in the array.",
-              "type": "(previousValue: U, currentValue: number, currentIndex: number, array: Uint8Array) => U"
-            },
-            {
-              "name": "initialValue",
-              "docs": "If initialValue is specified, it is used as the initial value to start\r\nthe accumulation. The first call to the callbackfn function provides this value as an argument\r\ninstead of an array value.",
-              "type": "U"
-            }
-          ],
-          "returns": "U",
-          "tags": [
-            {
-              "name": "param",
-              "text": "callbackfn A function that accepts up to four arguments. The reduce method calls the\r\ncallbackfn function one time for each element in the array."
-            },
-            {
-              "name": "param",
-              "text": "initialValue If initialValue is specified, it is used as the initial value to start\r\nthe accumulation. The first call to the callbackfn function provides this value as an argument\r\ninstead of an array value."
-            }
-          ],
-          "docs": "Calls the specified callback function for all the elements in an array. The return value of\r\nthe callback function is the accumulated result, and is provided as an argument in the next\r\ncall to the callback function.",
-          "complexTypes": ["U", "Uint8Array"],
-          "slug": "reduce"
-        },
-        {
-          "name": "reduceRight",
-          "signature": "(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: Uint8Array) => number) => number",
-          "parameters": [
-            {
-              "name": "callbackfn",
-              "docs": "A function that accepts up to four arguments. The reduceRight method calls\r\nthe callbackfn function one time for each element in the array.",
-              "type": "(previousValue: number, currentValue: number, currentIndex: number, array: Uint8Array) => number"
-            }
-          ],
-          "returns": "number",
-          "tags": [
-            {
-              "name": "param",
-              "text": "callbackfn A function that accepts up to four arguments. The reduceRight method calls\r\nthe callbackfn function one time for each element in the array."
-            },
-            {
-              "name": "param",
-              "text": "initialValue If initialValue is specified, it is used as the initial value to start\r\nthe accumulation. The first call to the callbackfn function provides this value as an\r\nargument instead of an array value."
-            }
-          ],
-          "docs": "Calls the specified callback function for all the elements in an array, in descending order.\r\nThe return value of the callback function is the accumulated result, and is provided as an\r\nargument in the next call to the callback function.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "reduceright"
-        },
-        {
-          "name": "reduceRight",
-          "signature": "(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: Uint8Array) => number, initialValue: number) => number",
-          "parameters": [
-            {
-              "name": "callbackfn",
-              "docs": "",
-              "type": "(previousValue: number, currentValue: number, currentIndex: number, array: Uint8Array) => number"
-            },
-            {
-              "name": "initialValue",
-              "docs": "",
-              "type": "number"
-            }
-          ],
-          "returns": "number",
-          "tags": [],
-          "docs": "",
-          "complexTypes": ["Uint8Array"],
-          "slug": "reduceright"
-        },
-        {
-          "name": "reduceRight",
-          "signature": "<U>(callbackfn: (previousValue: U, currentValue: number, currentIndex: number, array: Uint8Array) => U, initialValue: U) => U",
-          "parameters": [
-            {
-              "name": "callbackfn",
-              "docs": "A function that accepts up to four arguments. The reduceRight method calls\r\nthe callbackfn function one time for each element in the array.",
-              "type": "(previousValue: U, currentValue: number, currentIndex: number, array: Uint8Array) => U"
-            },
-            {
-              "name": "initialValue",
-              "docs": "If initialValue is specified, it is used as the initial value to start\r\nthe accumulation. The first call to the callbackfn function provides this value as an argument\r\ninstead of an array value.",
-              "type": "U"
-            }
-          ],
-          "returns": "U",
-          "tags": [
-            {
-              "name": "param",
-              "text": "callbackfn A function that accepts up to four arguments. The reduceRight method calls\r\nthe callbackfn function one time for each element in the array."
-            },
-            {
-              "name": "param",
-              "text": "initialValue If initialValue is specified, it is used as the initial value to start\r\nthe accumulation. The first call to the callbackfn function provides this value as an argument\r\ninstead of an array value."
-            }
-          ],
-          "docs": "Calls the specified callback function for all the elements in an array, in descending order.\r\nThe return value of the callback function is the accumulated result, and is provided as an\r\nargument in the next call to the callback function.",
-          "complexTypes": ["U", "Uint8Array"],
-          "slug": "reduceright"
-        },
-        {
-          "name": "reverse",
-          "signature": "() => Uint8Array",
-          "parameters": [],
-          "returns": "Uint8Array",
-          "tags": [],
-          "docs": "Reverses the elements in an Array.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "reverse"
-        },
-        {
-          "name": "set",
-          "signature": "(array: ArrayLike<number>, offset?: number | undefined) => void",
-          "parameters": [
-            {
-              "name": "array",
-              "docs": "A typed or untyped array of values to set.",
-              "type": "ArrayLike<number>"
-            },
-            {
-              "name": "offset",
-              "docs": "The index in the current array at which the values are to be written.",
-              "type": "number | undefined"
-            }
-          ],
-          "returns": "void",
-          "tags": [
-            {
-              "name": "param",
-              "text": "array A typed or untyped array of values to set."
-            },
-            {
-              "name": "param",
-              "text": "offset The index in the current array at which the values are to be written."
-            }
-          ],
-          "docs": "Sets a value or an array of values.",
-          "complexTypes": ["ArrayLike"],
-          "slug": "set"
-        },
-        {
-          "name": "slice",
-          "signature": "(start?: number | undefined, end?: number | undefined) => Uint8Array",
-          "parameters": [
-            {
-              "name": "start",
-              "docs": "The beginning of the specified portion of the array.",
-              "type": "number | undefined"
-            },
-            {
-              "name": "end",
-              "docs": "The end of the specified portion of the array. This is exclusive of the element at the index 'end'.",
-              "type": "number | undefined"
-            }
-          ],
-          "returns": "Uint8Array",
-          "tags": [
-            {
-              "name": "param",
-              "text": "start The beginning of the specified portion of the array."
-            },
-            {
-              "name": "param",
-              "text": "end The end of the specified portion of the array. This is exclusive of the element at the index 'end'."
-            }
-          ],
-          "docs": "Returns a section of an array.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "slice"
-        },
-        {
-          "name": "some",
-          "signature": "(predicate: (value: number, index: number, array: Uint8Array) => unknown, thisArg?: any) => boolean",
-          "parameters": [
-            {
-              "name": "predicate",
-              "docs": "A function that accepts up to three arguments. The some method calls\r\nthe predicate function for each element in the array until the predicate returns a value\r\nwhich is coercible to the Boolean value true, or until the end of the array.",
-              "type": "(value: number, index: number, array: Uint8Array) => unknown"
-            },
-            {
-              "name": "thisArg",
-              "docs": "An object to which the this keyword can refer in the predicate function.\r\nIf thisArg is omitted, undefined is used as the this value.",
-              "type": "any"
-            }
-          ],
-          "returns": "boolean",
-          "tags": [
-            {
-              "name": "param",
-              "text": "predicate A function that accepts up to three arguments. The some method calls\r\nthe predicate function for each element in the array until the predicate returns a value\r\nwhich is coercible to the Boolean value true, or until the end of the array."
-            },
-            {
-              "name": "param",
-              "text": "thisArg An object to which the this keyword can refer in the predicate function.\r\nIf thisArg is omitted, undefined is used as the this value."
-            }
-          ],
-          "docs": "Determines whether the specified callback function returns true for any element of an array.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "some"
-        },
-        {
-          "name": "sort",
-          "signature": "(compareFn?: ((a: number, b: number) => number) | undefined) => this",
-          "parameters": [
-            {
-              "name": "compareFn",
-              "docs": "Function used to determine the order of the elements. It is expected to return\r\na negative value if first argument is less than second argument, zero if they're equal and a positive\r\nvalue otherwise. If omitted, the elements are sorted in ascending, ASCII character order.\r\n```ts\r\n[11,2,22,1].sort((a, b) => a - b)\r\n```",
-              "type": "((a: number, b: number) => number) | undefined"
-            }
-          ],
-          "returns": "this",
-          "tags": [
-            {
-              "name": "param",
-              "text": "compareFn Function used to determine the order of the elements. It is expected to return\r\na negative value if first argument is less than second argument, zero if they're equal and a positive\r\nvalue otherwise. If omitted, the elements are sorted in ascending, ASCII character order.\r\n```ts\r\n[11,2,22,1].sort((a, b) => a - b)\r\n```"
-            }
-          ],
-          "docs": "Sorts an array.",
-          "complexTypes": [],
-          "slug": "sort"
-        },
-        {
-          "name": "subarray",
-          "signature": "(begin?: number | undefined, end?: number | undefined) => Uint8Array",
-          "parameters": [
-            {
-              "name": "begin",
-              "docs": "The index of the beginning of the array.",
-              "type": "number | undefined"
-            },
-            {
-              "name": "end",
-              "docs": "The index of the end of the array.",
-              "type": "number | undefined"
-            }
-          ],
-          "returns": "Uint8Array",
-          "tags": [
-            {
-              "name": "param",
-              "text": "begin The index of the beginning of the array."
-            },
-            {
-              "name": "param",
-              "text": "end The index of the end of the array."
-            }
-          ],
-          "docs": "Gets a new Uint8Array view of the ArrayBuffer store for this array, referencing the elements\r\nat begin, inclusive, up to end, exclusive.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "subarray"
-        },
-        {
-          "name": "toLocaleString",
-          "signature": "() => string",
-          "parameters": [],
-          "returns": "string",
-          "tags": [],
-          "docs": "Converts a number to a string by using the current locale.",
-          "complexTypes": [],
-          "slug": "tolocalestring"
-        },
-        {
-          "name": "toString",
-          "signature": "() => string",
-          "parameters": [],
-          "returns": "string",
-          "tags": [],
-          "docs": "Returns a string representation of an array.",
-          "complexTypes": [],
-          "slug": "tostring"
-        },
-        {
-          "name": "valueOf",
-          "signature": "() => Uint8Array",
-          "parameters": [],
-          "returns": "Uint8Array",
-          "tags": [],
-          "docs": "Returns the primitive value of the specified object.",
-          "complexTypes": ["Uint8Array"],
-          "slug": "valueof"
-        }
-      ],
-      "properties": [
-        {
-          "name": "BYTES_PER_ELEMENT",
-          "tags": [],
-          "docs": "The size in bytes of each element in the array.",
-          "complexTypes": [],
-          "type": "number"
-        },
-        {
-          "name": "buffer",
-          "tags": [],
-          "docs": "The ArrayBuffer instance referenced by the array.",
-          "complexTypes": ["ArrayBufferLike"],
-          "type": "ArrayBufferLike"
-        },
-        {
-          "name": "byteLength",
-          "tags": [],
-          "docs": "The length in bytes of the array.",
-          "complexTypes": [],
-          "type": "number"
-        },
-        {
-          "name": "byteOffset",
-          "tags": [],
-          "docs": "The offset in bytes of the array.",
-          "complexTypes": [],
-          "type": "number"
-        },
-        {
-          "name": "length",
-          "tags": [],
-          "docs": "The length of the array.",
-          "complexTypes": [],
-          "type": "number"
-        }
-      ]
-    },
-    {
-      "name": "ArrayLike",
-      "slug": "arraylike",
-      "docs": "",
-      "tags": [],
-      "methods": [],
-      "properties": [
-        {
-          "name": "length",
-          "tags": [],
           "docs": "",
           "complexTypes": [],
-          "type": "number"
-        }
-      ]
-    },
-    {
-      "name": "ArrayBufferTypes",
-      "slug": "arraybuffertypes",
-      "docs": "Allowed ArrayBuffer types for the buffer of an ArrayBufferView and related Typed Arrays.",
-      "tags": [],
-      "methods": [],
-      "properties": [
-        {
-          "name": "ArrayBuffer",
-          "tags": [],
-          "docs": "",
-          "complexTypes": ["ArrayBuffer"],
-          "type": "ArrayBuffer"
+          "type": "string"
         }
       ]
     },
@@ -1453,17 +710,6 @@
   ],
   "enums": [],
   "typeAliases": [
-    {
-      "name": "ArrayBufferLike",
-      "slug": "arraybufferlike",
-      "docs": "",
-      "types": [
-        {
-          "text": "ArrayBufferTypes[keyof ArrayBufferTypes]",
-          "complexTypes": ["ArrayBufferTypes"]
-        }
-      ]
-    },
     {
       "name": "PermissionState",
       "slug": "permissionstate",
