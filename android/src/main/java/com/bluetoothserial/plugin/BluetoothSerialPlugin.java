@@ -36,16 +36,24 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-@CapacitorPlugin(name = "BluetoothSerial", permissions = {
-        @Permission(strings = {
+@CapacitorPlugin(
+    name = "BluetoothSerial",
+    permissions = {
+        @Permission(
+            strings = {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.BLUETOOTH,
                 Manifest.permission.BLUETOOTH_ADMIN
-        }, alias = BluetoothSerialPlugin.BLUETOOTH),
-        @Permission(strings = { Manifest.permission.BLUETOOTH_CONNECT,
-                Manifest.permission.BLUETOOTH_SCAN }, alias = BluetoothSerialPlugin.BLUETOOTH_API_31)
-})
+            },
+            alias = BluetoothSerialPlugin.BLUETOOTH
+        ),
+        @Permission(
+            strings = { Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN },
+            alias = BluetoothSerialPlugin.BLUETOOTH_API_31
+        )
+    }
+)
 public class BluetoothSerialPlugin extends Plugin {
 
     // Permission alias constants
@@ -424,7 +432,8 @@ public class BluetoothSerialPlugin extends Plugin {
                                     Log.e(getLogTag(), "Error in notifyListeners: " + e.getLocalizedMessage(), e);
                                 }
                             }
-                        });
+                        }
+                    );
                 call.resolve();
             } else {
                 call.reject("Required Android API >= " + android.os.Build.VERSION_CODES.N);

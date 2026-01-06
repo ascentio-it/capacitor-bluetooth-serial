@@ -704,3 +704,68 @@ BluetoothSerial.write({
     console.log('Error writing data to device');
   });
 ```
+
+### Raw binary writes (ESC/POS images)
+
+The plugin's `write` API accepts a string. To send raw binary ESC/POS commands (preprocessed raster data) without corruption, encode the JS bytes into a Latin‑1 string in the app and call `write` as usual. The plugin decodes the incoming string using ISO‑8859‑1 to recover the original bytes.
+
+**Why Latin-1?** When applications convert binary ESC/POS buffers to JS strings and call `write(string)`, the native side must decode that string back to bytes. Using ISO-8859-1 (Latin-1) provides a 1:1 character-to-byte mapping (each character code 0-255 maps to byte 0x00-0xFF), preserving the original binary data. This prevents corruption that would occur with UTF-8 or UTF-16 encoding.
+
+#### JavaScript helper (frontend):
+
+```javascript
+export function bytesToLatin1String(bytes) {
+  const CHUNK = 0x8000;
+  let result = '';
+  for (let i = 0; i < bytes.length; i += CHUNK) {
+    result += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + CHUNK)));
+  }
+  return result;
+}
+
+// Helper to display hex dump for verification
+export function hexDump(bytes, maxBytes = 64) {
+  const slice = bytes.slice(0, maxBytes);
+  return Array.from(slice).map(b => b.toString(16).padStart(2, '0').toUpperCase()).join(' ');
+}
+```
+
+#### Usage example:
+
+```typescript
+import { BluetoothSerial } from '@ascentio-it/capacitor-bluetooth-serial';
+
+// Your ESC/POS binary data (example: preprocessed image raster)
+const escPosData = new Uint8Array([0x1B, 0x40, 0x1D, 0x76, 0x30, 0x00, 0x30, 0x00, 0x78, 0x00]);
+
+// Convert to Latin-1 string
+const latin1String = bytesToLatin1String(escPosData);
+
+// Log hex for verification (compare with native logs)
+console.log('JS hex:', hexDump(escPosData));
+
+// Send to printer
+BluetoothSerial.write({
+  address: '00:11:22:33:44:55',
+  value: latin1String,
+})
+  .then(() => {
+    console.log('Binary data sent successfully');
+  })
+  .catch((err) => {
+    console.log('Error sending binary data:', err);
+  });
+```
+
+#### Verification:
+
+Use the deterministic test buffer `1B 40 1D 76 30 00 30 00 78 00` to verify correct byte transmission:
+
+1. Send the test buffer using the `bytesToLatin1String` helper
+2. Check JavaScript console for `hexDump` output
+3. Check native logs for `native-recv-hex` entries:
+   - **Android**: `adb logcat | grep BTSerial`
+   - **iOS**: Device logs (if Bluetooth functionality is implemented)
+4. Verify that JS hex matches native hex exactly
+
+This confirms the plugin preserves the original binary data without corruption.
