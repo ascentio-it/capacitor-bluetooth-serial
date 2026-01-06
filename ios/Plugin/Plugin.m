@@ -5,5 +5,4 @@
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
 CAP_PLUGIN(BluetoothSerial, "BluetoothSerial",
            CAP_PLUGIN_METHOD(echo, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(write, CAPPluginReturnPromise);
 )
