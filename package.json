@@ -1,6 +1,6 @@
 {
   "name": "@ascentio-it/capacitor-bluetooth-serial",
-  "version": "7.5.3",
+  "version": "8.0.0",
   "description": "Capacitor Bluetooth Serial Plugin",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -18,9 +18,9 @@
     "verify:ios": "cd ios && pod install && xcodebuild -workspace Plugin.xcworkspace -scheme Plugin -destination generic/platform=iOS && cd ..",
     "verify:android": "cd android && ./gradlew clean build test && cd ..",
     "verify:web": "npm run build",
-    "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",
-    "fmt": "npm run eslint -- --fix && npm run prettier -- --write && npm run swiftlint -- --fix --format",
-    "eslint": "eslint . --ext ts --ignore-pattern dist/",
+    "lint": "eslint . --ext .ts,.js",
+    "format": "prettier --write .",
+    "eslint": "eslint . --ext .ts,.js --ignore-pattern dist/",
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
     "swiftlint": "node-swiftlint",
     "docgen": "docgen --api BluetoothSerialPlugin --output-readme README.md --output-json dist/docs.json",
@@ -33,20 +33,24 @@
   "author": "Gerson Groth",
   "license": "MIT",
   "devDependencies": {
-    "@capacitor/android": "^7.4.4",
-    "@capacitor/core": "^7.4.4",
-    "@capacitor/docgen": "^0.3.0",
-    "@capacitor/ios": "^7.4.4",
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/docgen": "^0.3.1",
+    "@capacitor/ios": "^8.0.0",
+    "@eslint/js": "^9.39.2",
     "@ionic/eslint-config": "^0.4.0",
     "@ionic/prettier-config": "^4.0.0",
     "@ionic/swiftlint-config": "^2.0.0",
-    "eslint": "^8.57.0",
-    "prettier": "^3.4.2",
-    "prettier-plugin-java": "^2.6.6",
-    "rimraf": "^6.0.1",
-    "rollup": "^4.30.1",
+    "@types/node": "^25.2.0",
+    "eslint": "^8.57.1",
+    "globals": "^17.3.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-java": "^2.7.7",
+    "rimraf": "^6.1.0",
+    "rollup": "^4.53.2",
     "swiftlint": "^2.0.0",
-    "typescript": "~4.8.4"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0"
   },
   "prettier": "@ionic/prettier-config",
   "swiftlint": "@ionic/swiftlint-config",
@@ -71,7 +75,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ascentio-it/capacitor-bluetooth-serial"
+    "url": "git+https://github.com/ascentio-it/capacitor-bluetooth-serial.git"
   },
   "bugs": {
     "url": "https://github.com/ascentio-it/capacitor-bluetooth-serial/issues"
