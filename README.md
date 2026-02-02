@@ -8,16 +8,17 @@ Which is in turn forked from:
 
 Forked from [agro1desenvolvimento/capacitor-bluetooth-serial](https://github.com/agro1desenvolvimento/capacitor-bluetooth-serial) (archived)
 
-I needed this plugin with Capacitor 7 and some additional logic for getting the paired devices. This is why I have forked it. I most likely won't add additional features. But I will try to keep the packages updated and working with newer versions of Capacitor. Our project only uses Android, and I don't have a iOS device to check if it works. This is why supported platforms only states Android.
+I needed this plugin with Capacitor 8 and some additional logic for getting the paired devices. This is why I have forked it. I most likely won't add additional features. But I will try to keep the packages updated and working with newer versions of Capacitor. Our project only uses Android, and I don't have a iOS device to check if it works. This is why supported platforms only states Android.
 
 Supported platforms
 
 - [ ] Web
 - [x] Android
-- [ ] iOS
+- [?] iOS
 
 Supported Capacitor versions:
 
+- Capacitor 8 : use version 8.x
 - Capacitor 7 : use version 7.x
 - Capacitor 6 : use version 6.x
 - Capacitor 5 : use version 5.x
@@ -147,8 +148,6 @@ BluetoothSerial.checkBluetoothPermissions()
     console.log('Error checking Bluetooth permissions');
   });
 ```
-
-
 
 ## getPairedDevices
 
